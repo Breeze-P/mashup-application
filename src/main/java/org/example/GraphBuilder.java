@@ -47,7 +47,7 @@ public class GraphBuilder {
         try (CSVReader csvReader = new CSVReaderBuilder(new FileReader(filePath)).withSkipLines(1).build()) {
             List<String[]> allData = csvReader.readAll();
 
-            int maxIterations = 1000;
+            int maxIterations = 2000;
             int currentIterations = 0;
 
             int apiId = 0;
@@ -163,5 +163,29 @@ public class GraphBuilder {
         for (WebAPIEdge edge : graph.edges) {
             System.out.println("Node1: " + edge.node1.name + ", Node2: " + edge.node2.name + ", Weight: " + edge.weight);
         }
+    }
+
+    public static List<List<WebAPINode>> findNodesByCategories(WebAPIGraph graph, List<String> targetCategories) {
+        Map<String, List<WebAPINode>> categoryMap = new HashMap<>();
+
+        // 初始化categoryMap
+        for (String category : targetCategories) {
+            categoryMap.put(category, new ArrayList<>());
+        }
+
+        // 遍历图中的节点
+        for (WebAPINode node : graph.nodes) {
+            // 检查节点是否包含指定的categories
+            for (String category : targetCategories) {
+                if (node.categories.contains(category)) {
+                    categoryMap.get(category).add(node);
+                }
+            }
+        }
+
+        // 将结果转为List
+        List<List<WebAPINode>> result = new ArrayList<>(categoryMap.values());
+
+        return result;
     }
 }

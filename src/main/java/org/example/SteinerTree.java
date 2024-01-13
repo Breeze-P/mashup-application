@@ -6,7 +6,7 @@ import java.util.PriorityQueue;
 
 public class SteinerTree {
 
-    public static long findMinWeight(WebAPIGraph graph, WebAPINode[] keyNodes) {
+    public static long SteinerTreeValue(WebAPIGraph graph, WebAPINode[] keyNodes) {
         int n = graph.nodes.size();
         int k = keyNodes.length;
         long[][] pow = new long[n][n]; // 存储各节点之间的距离信息，表示i节点到j节点的距离
